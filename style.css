@@ -1,0 +1,20 @@
+.shoutout {
+    background-color: white;
+    border: 2px solid #ccc;
+    margin: 10px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    cursor: default;
+    transition: transform 0.3s, background 0.3s;
+    display: none; /* hide by default */
+}
+
+.shoutout.active {
+    background-color: #ffeb3b;
+    transform: scale(1.1);
+    font-size: 1.4em;
+    cursor: pointer;
+}

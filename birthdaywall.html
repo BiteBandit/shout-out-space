@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Birthday Wall - Shout Out Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      background: linear-gradient(to bottom right, #fce4ec, #f8bbd0);
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #880e4f;
+      padding: 20px;
+    }
+
+    .search-bar {
+      margin: 20px auto;
+      max-width: 300px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .present-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 30px;
+    }
+
+    .present-box {
+      display: none;
+      width: 200px;
+      height: 200px;
+      background: #9c27b0;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+    }
+
+    .present-box.opened {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.2);
+      width: 90vw;
+      height: 90vh;
+      z-index: 999;
+      border-radius: 30px;
+    }
+
+    .hidden-message {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      transform: rotateY(0deg);
+      background: white;
+      border-radius: 30px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .present-box:not(.opened) .hidden-message {
+      display: none;
+    }
+
+    .hidden-message img {
+  width: 300px;
+  height: 300px;
+  border-radius: 30px;
+  margin-bottom: 40px;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+    .hidden-message p {
+      font-size: 28px;
+      color: #333;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 998;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+  .fireworks {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin: -100px 0 0 -100px;
+  background: radial-gradient(circle, #ff4081, #fce4ec, transparent 70%);
+  border-radius: 50%;
+  animation: boom 0.5s ease-out forwards;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+@keyframes boom {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+  </style>
+</head>
+<body>
+
+  <h1>Birthday Wall</h1>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search by name...">
+  </div>
+
+  <div class="present-container" id="presentContainer">
+    <div class="present-box" data-name="Emily">
+      <div class="hidden-message">
+        <img src="emily.jpg" alt="Emily">
+        <p>Happy Birthday, Emily! Wishing you a fabulous day!</p>
+      </div>
+    </div>
+
+    <div class="present-box" data-name="Kelvin">
+      <div class="hidden-message">
+        <img src="Kelvin.jpg" alt="Kelvin">
+        <p>Happy Birthday, Kelvin! Keep being awesome!</p>
+        <audio id="shoutAudio"
+          src="shoutout.mp3" preload="auto">
+        </audio>
+      </div>
+    </div>
+
+    <div class="present-box" data-name="Sarah">
+      <div class="hidden-message">
+        <img src="sarah.jpg" alt="Sarah">
+        <p>Happy Birthday, Sarah! May your day be filled with laughter!</p>
+      </div>
+    </div>
+
+    <div class="present-box" data-name="Michael">
+      <div class="hidden-message">
+        <img src="michael.jpg" alt="Michael">
+        <p>Happy Birthday, Michael! Cheers to your new age!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <audio id="shoutAudio" src="shoutout.mp3"></audio>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const boxes = document.querySelectorAll(".present-box");
+    const searchInput = document.getElementById("searchInput");
+
+    // Hide all boxes by default
+    boxes.forEach(box => {
+      box.style.display = "none";
+    });
+
+    // Only show on exact match when user presses Enter
+    searchInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        const filter = searchInput.value.trim().toLowerCase();
+        let found = false;
+        boxes.forEach(box => {
+          const name = box.getAttribute("data-name").toLowerCase();
+          if (name === filter) {
+            box.style.display = "block";
+            found = true;
+          } else {
+            box.style.display = "none";
+          }
+        });
+
+        if (!found) {
+          alert("No match found!");
+        }
+      }
+    });
+
+    // Open box and trigger effects on click
+    boxes.forEach(box => {
+      box.addEventListener("click", function () {
+        box.classList.toggle("opened");
+
+        // Play sound
+        const audio = box.querySelector("audio");
+        if (audio) {
+          audio.play();
+        }
+
+        // Fireworks effect
+        triggerFireworks();
+      });
+    });
+
+    // Fireworks function
+    function triggerFireworks() {
+      const container = document.createElement('div');
+      container.classList.add('fireworks');
+      document.body.appendChild(container);
+      container.innerHTML = '✨🎉✨';
+      container.style.position = 'fixed';
+      container.style.top = '50%';
+      container.style.left = '50%';
+      container.style.transform = 'translate(-50%, -50%)';
+      container.style.fontSize = '60px';
+      container.style.zIndex = '9999';
+      container.style.animation = 'fadeOut 1.5s ease-out forwards';
+
+      setTimeout(() => {
+        container.remove();
+      }, 1500);
+    }
+  });
+</script>
+
+<style>
+  @keyframes fadeOut {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(2); }
+  }
+</style>

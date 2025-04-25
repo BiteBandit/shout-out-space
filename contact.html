@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Shout Out Space</title>
+  <style>
+    body {
+      font-family: 'montserrat', sans-serif;
+      background:
+      linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+          background-size: 400% 400%;
+          animation: waveBG 5s ease-in-out infinite;
+          infinite;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    @keyframes waveBG {0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: white;
+      pointer-event: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    }
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
+
+    nav a.active {
+      background-color: #25D366;
+      color: #fff;
+    }
+
+    nav a:hover {
+      background-color: #ddd;
+    }
+
+    h1 {
+      margin-top: 60px;
+      font-size: 2.5rem;
+    }
+
+    p {
+      margin: 10px 0 30px;
+      font-size: 1.1rem;
+    }
+
+    .contact-btn {
+      background-color: #25D366;
+      color: #fff;
+      border: none;
+      padding: 15px 25px;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .contact-btn:hover {
+      background-color: #1DA851;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Shout Out Space</h2>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="birthdaywall.html">Birthday Wall</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="book-now.html">Book Now</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Contact Me</h1>
+    <p>Have any questions or want to collaborate? I'm available on WhatsApp anytime!</p>
+    <a href="https://wa.me/2348169668409?text=Hello%2C%20I%20need%20help%20with%20a%20birthday%20shout%20out!" class="contact-btn" target="_blank">
+      Message Me on WhatsApp
+    </a>
+  </main>
+</body>
+</html>

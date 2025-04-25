@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book a Shout Out</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f3e5f5;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      margin: 0
+      15px;
+      text-decoration: none;
+      font-size: bold;
+      padding: 5px 10px;
+       border-radius: 6px;
+       transition: 0.3s ease;
+      color: #432ab3;
+    }
+
+    nav a.active {
+      background-color: purple;
+    color: white;
+  }
+
+  nav a.hover {
+    background-color: purple;
+    color: white;
+  }
+
+    h1 {
+      color: #673ab7;
+      margin-top: 30px;
+    }
+
+    form {
+      background-color: white;
+      padding: 30px 20px;
+      max-width: 500px;
+      margin: 30px auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+
+    .total {
+      font-weight: bold;
+      margin: 10px 0;
+      font-size: 18px;
+      color: #d81b60;
+    }
+
+    a.button {
+      background-color: #d81b60;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 5px;
+      font-size: 16px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    a.button:hover {
+      background-color: #c2185b;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>Shout Out Space</h2>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="birthdaywall.html">Birthday Wall</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="book-now.html">Book Now</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <h1>Book a Shout Out</h1>
+
+  <form id="bookingForm" oninput="updateTotal()">
+    <label for="name">Recipient's Name</label>
+    <input type="text" id="name" required />
+
+    <label for="message">Birthday Message</label>
+    <textarea id="message" rows="4" required></textarea>
+
+    <label for="package">Choose a Package</label>
+    <select id="package" required>
+      <option value="">--Select--</option>
+      <option value="500">Basic Shout Out – ₦500</option>
+      <option value="1000">Photo Shout Out – ₦1,000</option>
+      <option value="2000">Custom Style – ₦2,000</option>
+      <option value="3000">Premium Shout Out – ₦3,000</option>
+    </select>
+
+    <label for="addon">Optional Add-On</label>
+    <select id="addon">
+      <option value="0">--None--</option>
+      <option value="500">Add a Song/Sound – ₦500</option>
+      <option value="1000">Add a Short Video – ₦1,000</option>
+    </select>
+
+    <div class="total">Total: ₦<span id="total">0</span></div>
+
+    <a class="button" href="#" onclick="sendToWhatsApp()">Contact Me on WhatsApp</a>
+  </form>
+
+  <script>
+    function updateTotal() {
+      const packagePrice = parseInt(document.getElementById('package').value) || 0;
+      const addonPrice = parseInt(document.getElementById('addon').value) || 0;
+      const total = packagePrice + addonPrice;
+      document.getElementById('total').innerText = total;
+    }
+
+    function sendToWhatsApp() {
+      const name = document.getElementById("name").value;
+      const msg = document.getElementById("message").value;
+      const pkgText = document.getElementById("package").selectedOptions[0].text;
+      const addonText = document.getElementById("addon").selectedOptions[0].text;
+      const total = document.getElementById("total").innerText;
+
+      if (!name || !msg || !pkgText) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      const whatsappNumber = "2348169668409"; // your number here
+      const text = `Hello! I want to book a shout out:\n\nName: ${name}\nMessage: ${msg}\nPackage: ${pkgText}\nAdd-on: ${addonText}\nTotal Amount: ₦${total}`;
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+</html>
